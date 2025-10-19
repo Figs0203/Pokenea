@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex Pokenea</title>
+    <style>
+        body { font-family: sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { text-align: center; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        img { max-width: 200px; height: auto; border-radius: 8px; margin-bottom: 1rem; }
+        .frase { font-style: italic; color: #555; }
+        .container-id { font-family: monospace; background: #eee; padding: 5px 10px; border-radius: 5px; margin-top: 1.5rem; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pokenea del Día</h1>
+        <img src="{{ pokenea.imagen }}" alt="Imagen de {{ pokenea.nombre }}">
+        <h2>{{ pokenea.nombre }}</h2>
+        <p class="frase">"{{ pokenea.frase_filosofica }}"</p>
+        <div class="container-id">
+            Servido desde el contenedor: {{ container_id }}
+        </div>
+    </div>
+</body>
+</html>
