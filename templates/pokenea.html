@@ -4,22 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex Pokenea</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .container { text-align: center; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        img { max-width: 200px; height: auto; border-radius: 8px; margin-bottom: 1rem; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #2c3e50; /* Fondo oscuro */
+            color: #ecf0f1; /* Texto claro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+        .container {
+            text-align: center;
+            background-color: #e74c3c; /* Contenedor Rojo Pokémon */
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: #f1c40f; /* Título amarillo */
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        .pokenea-card {
+            background-color: #d0e1f9; /* Pantalla azul claro */
+            color: #333; /* Texto oscuro para la pantalla */
+            border: 4px solid #c0392b; /* Borde rojo más oscuro */
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .pokenea-card img {
+            max-width: 180px;
+            height: auto;
+            margin-bottom: 1rem;
+            image-rendering: pixelated; /* Estilo pixel art */
+            border: 4px solid #a9c4e8; /* Borde de imagen azul más oscuro */
+            border-radius: 8px;
+        }
+        .pokenea-card h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
         .frase { font-style: italic; color: #555; }
-        .container-id { font-family: monospace; background: #eee; padding: 5px 10px; border-radius: 5px; margin-top: 1.5rem; display: inline-block; }
+        .container-id { font-family: monospace; background: #2c3e50; color: #ecf0f1; padding: 8px 12px; border-radius: 5px; margin-top: 1.5rem; display: inline-block; font-size: 0.9rem; }
+        .navigation { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 1.5rem; }
+        .button { display: inline-block; background-color: #3498db; color: white; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background-color 0.3s, transform 0.2s; border: none; }
+        .button.random { background-color: #2ecc71; }
+        .button:hover:not(.disabled) { background-color: #2980b9; transform: translateY(-2px); }
+        .button.random:hover:not(.disabled) { background-color: #27ae60; transform: translateY(-2px); }
+        .button.disabled { background-color: #7f8c8d; cursor: not-allowed; pointer-events: none; opacity: 0.6; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Pokenea del Día</h1>
-        <img src="{{ pokenea.imagen }}" alt="Imagen de {{ pokenea.nombre }}">
-        <h2>{{ pokenea.nombre }}</h2>
-        <p class="frase">"{{ pokenea.frase_filosofica }}"</p>
+        <div class="pokenea-card">
+            <img src="{{ pokenea.imagen }}" alt="Imagen de {{ pokenea.nombre }}">
+            <h2>#{{ pokenea.id }} - {{ pokenea.nombre }}</h2>
+            <p class="frase">"{{ pokenea.frase_filosofica }}"</p>
+        </div>
+
+        <div class="navigation">
+            {# Botón Anterior: se deshabilita si es el primer pokenea #}
+            {% if pokenea.id > 1 %}
+                <a href="{{ url_for('pokenea.mostrar_pokenea_por_id', pokenea_id=pokenea.id - 1) }}" class="button">Anterior</a>
+            {% else %}
+                <a href="#" class="button disabled">Anterior</a>
+            {% endif %}
+
+            {# Botón para ir a un Pokenea aleatorio #}
+            <a href="{{ url_for('pokenea.index') }}" class="button random">¡Sorpréndeme!</a>
+
+            {# Botón Siguiente: se deshabilita si es el último pokenea #}
+            {% if pokenea.id < total_pokeneas %}
+                <a href="{{ url_for('pokenea.mostrar_pokenea_por_id', pokenea_id=pokenea.id + 1) }}" class="button">Siguiente</a>
+            {% else %}
+                <a href="#" class="button disabled">Siguiente</a>
+            {% endif %}
+        </div>
+
         <div class="container-id">
-            Servido desde el contenedor: {{ container_id }}
+            ID del Contenedor: {{ container_id }}
         </div>
     </div>
 </body>

@@ -2,7 +2,7 @@
 
 import random
 import socket
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, render_template, jsonify, redirect, url_for, abort
 from models.pokeneas import POKENEAS
 
 # Creamos un Blueprint para organizar nuestras rutas de manera modular.
@@ -14,17 +14,33 @@ def get_container_id():
     """
     return socket.gethostname()
 
-@pokenea_blueprint.route('/', methods=['GET'])
-def mostrar_pokenea_aleatorio():
+@pokenea_blueprint.route('/')
+def index():
     """
-    Ruta principal que muestra la imagen y la frase de un Pokenea aleatorio.
-    También muestra el ID del contenedor que atiende la solicitud.
+    Ruta raíz que redirige a un Pokenea aleatorio de la lista.
     """
-    pokenea_aleatorio = random.choice(POKENEAS)
+    if POKENEAS:
+        pokenea_aleatorio = random.choice(POKENEAS)
+        return redirect(url_for('pokenea.mostrar_pokenea_por_id', pokenea_id=pokenea_aleatorio['id']))
+    else:
+        abort(404) # No hay Pokeneas que mostrar
+
+@pokenea_blueprint.route('/pokenea/<int:pokenea_id>', methods=['GET'])
+def mostrar_pokenea_por_id(pokenea_id):
+    """
+    Muestra un Pokenea específico basado en su ID.
+    """
+    # Buscar el pokenea por ID. `next` es más eficiente que un bucle for.
+    pokenea_actual = next((p for p in POKENEAS if p['id'] == pokenea_id), None)
+
+    if pokenea_actual is None:
+        abort(404) # Pokenea no encontrado
+
     container_id = get_container_id()
+    total_pokeneas = len(POKENEAS)
     
     # Pasamos los datos a la plantilla HTML para que los renderice.
-    return render_template('pokenea.html', pokenea=pokenea_aleatorio, container_id=container_id)
+    return render_template('pokenea.html', pokenea=pokenea_actual, container_id=container_id, total_pokeneas=total_pokeneas)
 
 @pokenea_blueprint.route('/api/pokenea', methods=['GET'])
 def obtener_pokenea_json():
