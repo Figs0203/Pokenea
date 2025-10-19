@@ -1,11 +1,5 @@
-# models/pokeneas.py
 
-# Este es nuestro "almacén" de datos en memoria.
-# En una aplicación real, esto provendría de una base de datos.
-
-# IMPORTANTE: Reemplaza '<S3_BUCKET_URL>' con la URL base de tu bucket de S3.
-# Ejemplo: 'https://mi-pokenea-bucket.s3.us-east-1.amazonaws.com'
-S3_BUCKET_URL = "https://<TU_BUCKET_URL_AQUI>"
+S3_BUCKET_URL = "https://pokedex-pokenea.s3.us-east-2.amazonaws.com"
 
 POKENEAS = [
     {
@@ -13,7 +7,7 @@ POKENEAS = [
         "nombre": "El Risas",
         "altura": "1.75m",
         "habilidad": "Contador de Chistes Malos",
-        "imagen": f"{S3_BUCKET_URL}/el_risas.png",
+        "imagen": f"{S3_BUCKET_URL}/el_risas.jpg",
         "frase_filosofica": "El que ríe de último, no entendió el chiste."
     },
     {
@@ -21,7 +15,7 @@ POKENEAS = [
         "nombre": "La Chismosa",
         "altura": "1.60m",
         "habilidad": "Oído Supersónico",
-        "imagen": f"{S3_BUCKET_URL}/la_chismosa.png",
+        "imagen": f"{S3_BUCKET_URL}/la_chismosa.jpg",
         "frase_filosofica": "Saber no es poder, pero es un buen chisme para contar."
     },
     {
@@ -29,7 +23,7 @@ POKENEAS = [
         "nombre": "El Tieso",
         "altura": "1.80m",
         "habilidad": "Bolsillo Vacío",
-        "imagen": f"{S3_BUCKET_URL}/el_tieso.png",
+        "imagen": f"{S3_BUCKET_URL}/el_tieso.jpg",
         "frase_filosofica": "No es que no tenga, es que estoy guardando para después de la quincena."
     },
     {
@@ -37,7 +31,7 @@ POKENEAS = [
         "nombre": "El Fiestero",
         "altura": "1.70m",
         "habilidad": "Aguante Etílico",
-        "imagen": f"{S3_BUCKET_URL}/el_fiestero.png",
+        "imagen": f"{S3_BUCKET_URL}/el_fiestero.jpg",
         "frase_filosofica": "Mañana será otro día, pero la fiesta es hoy."
     },
     {
@@ -45,7 +39,7 @@ POKENEAS = [
         "nombre": "La Emprendedora",
         "altura": "1.65m",
         "habilidad": "Vende-hasta-un-hueco",
-        "imagen": f"{S3_BUCKET_URL}/la_emprendedora.png",
+        "imagen": f"{S3_BUCKET_URL}/la_emprendedora.jpg",
         "frase_filosofica": "Si la vida te da limones, véndelos a domicilio con un plan de referidos."
     },
     {
@@ -61,7 +55,7 @@ POKENEAS = [
         "nombre": "El Viajero",
         "altura": "1.82m",
         "habilidad": "Acumulador de Millas",
-        "imagen": f"{S3_BUCKET_URL}/el_viajero.png",
+        "imagen": f"{S3_BUCKET_URL}/el_viajero.jpg",
         "frase_filosofica": "Mi único plan es no tener planes y ver a dónde me lleva el pasaporte."
     },
     {
@@ -69,7 +63,7 @@ POKENEAS = [
         "nombre": "La Fit",
         "altura": "1.68m",
         "habilidad": "Cardio Matutino",
-        "imagen": f"{S3_BUCKET_URL}/la_fit.png",
+        "imagen": f"{S3_BUCKET_URL}/la_fit.jpg",
         "frase_filosofica": "El dolor es temporal, pero la foto para Instagram es para siempre."
     }
 ]
